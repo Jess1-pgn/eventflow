@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /checkout
+
+Sitemap: /sitemap.xml
