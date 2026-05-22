@@ -15,9 +15,12 @@ Route::view('/', 'welcome');
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 Route::get('/events', [PublicEventController::class, 'index'])->name('public.events.index');
 Route::get('/events/{event:seo_slug}', [PublicEventController::class, 'show'])->name('public.events.show');
-Route::get('/events/{event:seo_slug}/checkout', [CheckoutController::class, 'show'])->name('public.checkout.show');
-Route::post('/events/{event:seo_slug}/checkout', [CheckoutController::class, 'store'])->name('public.checkout.store');
-Route::get('/checkout/success/{order}', [CheckoutController::class, 'success'])->name('public.checkout.success');
+
+Route::middleware(['auth'])->group(function (): void {
+    Route::get('/events/{event:seo_slug}/checkout', [CheckoutController::class, 'show'])->name('public.checkout.show');
+    Route::post('/events/{event:seo_slug}/checkout', [CheckoutController::class, 'store'])->name('public.checkout.store');
+    Route::get('/checkout/success/{order}', [CheckoutController::class, 'success'])->name('public.checkout.success');
+});
 
 Route::get('dashboard', DashboardController::class)
     ->middleware(['auth', 'verified'])
