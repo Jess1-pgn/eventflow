@@ -77,7 +77,20 @@ new class extends Component
             </div>
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="hidden sm:flex sm:items-center sm:ms-6 gap-3">
+                @php($currentLocale = app()->getLocale())
+                <div class="inline-flex items-center rounded-xl border border-white/20 bg-white/10 p-1">
+                    <a href="{{ route('locale.switch', 'en') }}" class="px-2.5 py-1 rounded-lg text-xs font-semibold transition {{ $currentLocale === 'en' ? 'bg-white text-indigo-700' : 'text-indigo-100 hover:text-white hover:bg-white/10' }}">
+                        EN
+                    </a>
+                    <a href="{{ route('locale.switch', 'fr') }}" class="px-2.5 py-1 rounded-lg text-xs font-semibold transition {{ $currentLocale === 'fr' ? 'bg-white text-indigo-700' : 'text-indigo-100 hover:text-white hover:bg-white/10' }}">
+                        FR
+                    </a>
+                    <a href="{{ route('locale.switch', 'ar') }}" class="px-2.5 py-1 rounded-lg text-xs font-semibold transition {{ $currentLocale === 'ar' ? 'bg-white text-indigo-700' : 'text-indigo-100 hover:text-white hover:bg-white/10' }}">
+                        AR
+                    </a>
+                </div>
+
                 @auth
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
@@ -129,6 +142,22 @@ new class extends Component
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-white border-t border-gray-100 shadow-lg">
+        @php($currentLocale = app()->getLocale())
+        <div class="px-4 pt-4">
+            <p class="text-[11px] font-semibold uppercase tracking-wider text-gray-400 mb-2">Language</p>
+            <div class="inline-flex items-center rounded-xl border border-gray-200 bg-gray-50 p-1">
+                <a href="{{ route('locale.switch', 'en') }}" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition {{ $currentLocale === 'en' ? 'bg-indigo-600 text-white' : 'text-gray-600 hover:bg-white' }}">
+                    EN
+                </a>
+                <a href="{{ route('locale.switch', 'fr') }}" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition {{ $currentLocale === 'fr' ? 'bg-indigo-600 text-white' : 'text-gray-600 hover:bg-white' }}">
+                    FR
+                </a>
+                <a href="{{ route('locale.switch', 'ar') }}" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition {{ $currentLocale === 'ar' ? 'bg-indigo-600 text-white' : 'text-gray-600 hover:bg-white' }}">
+                    AR
+                </a>
+            </div>
+        </div>
+
         <div class="pt-2 pb-3 space-y-1">
             @auth
                 <x-responsive-nav-link :href="$this->dashboardUrl()" :active="request()->routeIs('dashboard')" wire:navigate>
